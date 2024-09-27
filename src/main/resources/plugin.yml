@@ -1,0 +1,5 @@
+name: PKSys
+version: '0.1-BETA'
+main: me.psyrioty.pKSys.PKSys
+api-version: '1.21'
+authors: [ Psyrioty ]
