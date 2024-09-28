@@ -1,5 +1,7 @@
-colorBadRep: #8B0000
-colorGoodRep: #2D00FF
+#Whether to replace the standard login and logout messages with custom ones
+CustomMessageLoginLogout: true
+MessageLogin: "#DDA0DD залетел на Сервер!"
+MessageLogout: "#DDA0DD покинул этот мир!"
 
 #Example for a PvP zone
 RgWhiteList:

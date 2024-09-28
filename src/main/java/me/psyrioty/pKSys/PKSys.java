@@ -1,5 +1,6 @@
 package me.psyrioty.pKSys;
 
+import me.psyrioty.pKSys.Listeners.JoinQuitPlayer;
 import me.psyrioty.pKSys.Listeners.PlayerKiller;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -39,6 +40,9 @@ public final class PKSys extends JavaPlugin {
 
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new PlayerKiller(), this);
+        if(defaultConfig.getBoolean("CustomMessageLoginLogout")){
+            pm.registerEvents(new JoinQuitPlayer(), this);
+        }
 
         new Expansion(this).register();
     }
