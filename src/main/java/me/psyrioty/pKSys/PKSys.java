@@ -18,7 +18,9 @@ public final class PKSys extends JavaPlugin {
     static PKSys plugin;
 
     File customFile;
+    File defaultFile;
     public FileConfiguration customConfig;
+    public FileConfiguration defaultConfig;
 
     @Override
     public void onEnable() {
@@ -26,6 +28,9 @@ public final class PKSys extends JavaPlugin {
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+
+        defaultFile = new File(getDataFolder(), "config.yml");
+        defaultConfig = YamlConfiguration.loadConfiguration(defaultFile);
 
         customFile = new File(getDataFolder(), "rep.yml");
         customConfig = YamlConfiguration.loadConfiguration(customFile);

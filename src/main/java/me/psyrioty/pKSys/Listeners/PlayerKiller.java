@@ -27,14 +27,48 @@ public class PlayerKiller implements Listener {
             var rep = 0;
             var repPlayerDeath = 0;
 
+            FileConfiguration defaultConfig = PKSys.getPlugin().defaultConfig;
+            boolean onWhiteList = false;
+            int i = 0;
+            while(true){
+                try{
+                    int _x = config.getInt("RgWhiteList." + i + "minPos.x");
+                    int _y = config.getInt("RgWhiteList." + i + "minPos.y");
+                    int _z = config.getInt("RgWhiteList." + i + "minPos.z");
+
+                    int _x2 = config.getInt("RgWhiteList." + i + "maxPos.x");
+                    int _y2 = config.getInt("RgWhiteList." + i + "maxPos.y");
+                    int _z2 = config.getInt("RgWhiteList." + i + "maxPos.z");
+
+                    int playerX = player.getLocation().getBlockX();
+                    int playerY = player.getLocation().getBlockY();
+                    int playerZ = player.getLocation().getBlockZ();
+
+                    if(_x <= playerX && playerX <= _x2 && _y <= playerY && playerY <= _y2 && _z <= playerZ && playerZ <= _z2){
+                        onWhiteList = true;
+                        break;
+                    }
+                }catch (Exception exception){
+                    break;
+                }
+
+                i++;
+            }
+            config.getInt("RgWhiteList.0.x");
+
+
             rep = config.getInt(playerKiller.getName());
             repPlayerDeath = config.getInt(player.getName());
-            if(repPlayerDeath >= 0) {
-                rep -= 10;
-            }else
-                rep += 10;
-            config.set(playerKiller.getName(), rep);
-            PKSys.getPlugin().saveCustomConfig();
+            if(!onWhiteList){
+                if(repPlayerDeath >= 0) {
+                    rep -= 10;
+                }else
+                    rep += 10;
+
+                config.set(playerKiller.getName(), rep);
+                PKSys.getPlugin().saveCustomConfig();
+            }
+
 
             playerKiller.sendMessage(prefix("&#B50778У Вас изменилась репутация, за убийство "+ playerPlace + "&#B50778, до " + rep + "."));
         }else {
