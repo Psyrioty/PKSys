@@ -32,21 +32,25 @@ public class PlayerKiller implements Listener {
             int i = 0;
             while(true){
                 try{
-                    int _x = config.getInt("RgWhiteList." + i + "minPos.x");
-                    int _y = config.getInt("RgWhiteList." + i + "minPos.y");
-                    int _z = config.getInt("RgWhiteList." + i + "minPos.z");
+                    int minX = defaultConfig.getInt("RgWhiteList." + i + ".minPos.x");
+                    int minY = defaultConfig.getInt("RgWhiteList." + i + ".minPos.y");
+                    int minZ = defaultConfig.getInt("RgWhiteList." + i + ".minPos.z");
 
-                    int _x2 = config.getInt("RgWhiteList." + i + "maxPos.x");
-                    int _y2 = config.getInt("RgWhiteList." + i + "maxPos.y");
-                    int _z2 = config.getInt("RgWhiteList." + i + "maxPos.z");
+                    int maxX = defaultConfig.getInt("RgWhiteList." + i + ".maxPos.x");
+                    int maxY = defaultConfig.getInt("RgWhiteList." + i + ".maxPos.y");
+                    int maxZ = defaultConfig.getInt("RgWhiteList." + i + ".maxPos.z");
 
-                    int playerX = player.getLocation().getBlockX();
-                    int playerY = player.getLocation().getBlockY();
-                    int playerZ = player.getLocation().getBlockZ();
-
-                    if(_x <= playerX && playerX <= _x2 && _y <= playerY && playerY <= _y2 && _z <= playerZ && playerZ <= _z2){
-                        onWhiteList = true;
+                    if (minX == 0 && maxX == 0 && minY == 0 && maxY == 0 && minZ == 0 && maxZ == 0) {
                         break;
+                    }
+
+                    int playerX = playerKiller.getLocation().getBlockX();
+                    int playerY = playerKiller.getLocation().getBlockY();
+                    int playerZ = playerKiller.getLocation().getBlockZ();
+
+                    if((minX <= playerX && minY <= playerY && minZ <= playerZ) && (playerX <= maxX && playerY <= maxY && playerZ <= maxZ)) {
+                        onWhiteList = true;
+                        //break;
                     }
                 }catch (Exception exception){
                     break;
@@ -54,8 +58,6 @@ public class PlayerKiller implements Listener {
 
                 i++;
             }
-            config.getInt("RgWhiteList.0.x");
-
 
             rep = config.getInt(playerKiller.getName());
             repPlayerDeath = config.getInt(player.getName());
@@ -67,10 +69,8 @@ public class PlayerKiller implements Listener {
 
                 config.set(playerKiller.getName(), rep);
                 PKSys.getPlugin().saveCustomConfig();
+                playerKiller.sendMessage(prefix("#B50778[PK]: #DDA0DDУ Вас изменилась репутация, за убийство "+ playerPlace + "#DDA0DD, до #B50778" + rep + "#DDA0DD."));
             }
-
-
-            playerKiller.sendMessage(prefix("&#B50778У Вас изменилась репутация, за убийство "+ playerPlace + "&#B50778, до " + rep + "."));
         }else {
             String playerPlace = prefix("%luckperms_prefix%%player_name%");
             playerPlace = PlaceholderAPI.setPlaceholders(player, playerPlace);

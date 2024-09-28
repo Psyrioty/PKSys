@@ -3,12 +3,12 @@ colorGoodRep: #2D00FF
 
 #Example for a PvP zone
 RgWhiteList:
-  0:
-    minPos:
-      x: -945
-      y: -64
-      z: -1826
-    maxPos:
-      x: -805
-      y: 78
-      z: -1388
+ 0:
+  minPos:
+   x: -839
+   y: 53
+   z: -1445
+  maxPos:
+   x: -805
+   y: 78
+   z: -1388
