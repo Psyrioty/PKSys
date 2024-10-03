@@ -1,6 +1,7 @@
 package me.psyrioty.pKSys.Listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.updatechecker.UpdateChecker;
 import me.psyrioty.pKSys.PKSys;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

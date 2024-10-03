@@ -1,10 +1,12 @@
 package me.psyrioty.pKSys;
 
+import me.psyrioty.pKSys.Listeners.AutoMessage;
 import me.psyrioty.pKSys.Listeners.JoinQuitPlayer;
 import me.psyrioty.pKSys.Listeners.PlayerKiller;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
 
@@ -42,6 +44,11 @@ public final class PKSys extends JavaPlugin {
         pm.registerEvents(new PlayerKiller(), this);
         if(defaultConfig.getBoolean("CustomMessageLoginLogout")){
             pm.registerEvents(new JoinQuitPlayer(), this);
+        }
+
+        if(defaultConfig.getBoolean("AutoMessageEnable")){
+            int AutoMessageTime = defaultConfig.getInt("time");
+            Bukkit.getScheduler().runTaskTimerAsynchronously((Plugin)this, (Runnable)new AutoMessage(), 20L, 20L * AutoMessageTime);
         }
 
         new Expansion(this).register();

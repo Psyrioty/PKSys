@@ -3,6 +3,22 @@ CustomMessageLoginLogout: true
 MessageLogin: "#DDA0DD залетел на Сервер!"
 MessageLogout: "#DDA0DD покинул этот мир!"
 
+AutoMessageEnable: true
+time: 10
+AutoMessages:
+ 0:
+  text: "                                                                              
+  #DDA0DDБесплатные ключи и различные предметы можно получить в данже #B50778/warp danj
+                                                                                       "
+ 1:
+  text: "                                                                             
+  #DDA0DDЗа убийство других игроков может испортиться репутация.
+                                                                                       "
+ 2:
+  text: "                                                                             
+  #B50778https://minemagic.store/ #DDA0DD- покупка доната/поддержка сервера.
+                                                                                       "
+
 #Example for a PvP zone
 RgWhiteList:
  0:
