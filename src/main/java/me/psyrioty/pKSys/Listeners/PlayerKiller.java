@@ -2,6 +2,7 @@ package me.psyrioty.pKSys.Listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.psyrioty.pKSys.PKSys;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,8 +25,8 @@ public class PlayerKiller implements Listener {
             e.setDeathMessage(prefix(playerPlace + "&#DDA0DD отлетел в мир иной, от руки " + killerPlace + "&#DDA0DD!"));
 
             FileConfiguration config = PKSys.getPlugin().customConfig;
-            var rep = 0;
-            var repPlayerDeath = 0;
+            int rep = 0;
+            int repPlayerDeath = 0;
 
             FileConfiguration defaultConfig = PKSys.getPlugin().defaultConfig;
             boolean onWhiteList = false;
@@ -59,17 +60,23 @@ public class PlayerKiller implements Listener {
                 i++;
             }
 
-            rep = config.getInt(playerKiller.getName());
+
+
+            int oldRep = config.getInt(playerKiller.getName());
             repPlayerDeath = config.getInt(player.getName());
             if(!onWhiteList){
                 if(repPlayerDeath >= 0) {
-                    rep -= 10;
+                    rep = oldRep - 10;
                 }else
-                    rep += 10;
-
+                    rep = oldRep + 10;
                 config.set(playerKiller.getName(), rep);
                 PKSys.getPlugin().saveCustomConfig();
                 playerKiller.sendMessage(prefix("#B50778[PK]: #DDA0DDУ Вас изменилась репутация, за убийство "+ playerPlace + "#DDA0DD, до #B50778" + rep + "#DDA0DD."));
+                if (oldRep >=0 && rep < 0) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "luckperms user " + playerKiller.getName() + " meta addsuffix 99 \" &4☠&f \"");
+                } else if(oldRep < 0 && rep >= 0){
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "luckperms user " + playerKiller.getName() + " meta removesuffix 99");
+                }
             }
         }else {
             String playerPlace = prefix("%luckperms_prefix%%player_name%");
